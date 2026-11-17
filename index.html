@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mechanical Toolkit</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#0b1220;color:#f1f5f9;
+ font-family:Arial,sans-serif;padding:16px
+}
+header{text-align:center;padding:18px 0}
+header h1{margin:0;color:#38bdf8;font-size:27px}
+header p{color:#94a3b8}
+.container{max-width:600px;margin:auto}
+.grid{
+ display:grid;grid-template-columns:repeat(2,1fr);gap:12px
+}
+.card{
+ background:#17243a;border:1px solid #263b59;
+ padding:20px 10px;border-radius:14px;text-align:center;
+ color:white;cursor:pointer;font-size:15px
+}
+.card span{display:block;font-size:27px;margin-bottom:10px}
+.card:active{background:#254365}
+.screen{
+ display:none;background:#17243a;padding:20px;
+ border-radius:14px;margin-top:15px
+}
+.screen.active{display:block}
+h2{color:#38bdf8;margin-top:0}
+label{display:block;margin-top:14px;color:#cbd5e1}
+input{
+ width:100%;padding:13px;margin-top:7px;
+ border:1px solid #40536e;border-radius:9px;
+ background:#0b1220;color:white;font-size:16px
+}
+button{
+ border:0;border-radius:9px;padding:13px;
+ font-size:15px;cursor:pointer
+}
+.calculate{
+ width:100%;background:#0284c7;color:white;
+ margin-top:18px;font-weight:bold
+}
+.back{background:#334155;color:white;margin-bottom:15px}
+.result{
+ background:#0b1220;padding:15px;border-radius:10px;
+ margin-top:16px;color:#4ade80;font-size:17px;
+ display:none;line-height:1.6;overflow-wrap:anywhere
+}
+.formula{
+ background:#0b1220;padding:14px;border-radius:9px;
+ margin:12px 0;line-height:1.7
+}
+footer{text-align:center;color:#64748b;margin-top:30px;font-size:12px}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+<h1>⚙️ Mechanical Toolkit</h1>
+<p>Mechanical Engineering Calculator</p>
+</header>
+
+<div id="home" class="grid">
+ <button class="card" onclick="openScreen('torque')">
+ <span>🔩</span>Torque Calculator</button>
+
+ <button class="card" onclick="openScreen('power')">
+ <span>⚡</span>Power Calculator</button>
+
+ <button class="card" onclick="openScreen('rpm')">
+ <span>🔄</span>RPM Calculator</button>
+
+ <button class="card" onclick="openScreen('efficiency')">
+ <span>📊</span>Motor Efficiency</button>
+
+ <button class="card" onclick="openScreen('energy')">
+ <span>🔋</span>Energy Consumption</button>
+
+ <button class="card" onclick="openScreen('formulas')">
+ <span>📚</span>Formula Library</button>
+</div>
+
+<!-- TORQUE -->
+<section id="torque" class="screen">
+<button class="back" onclick="goHome()">← Back</button>
+<h2>Torque Calculator</h2>
+<label>Power (Watt)</label>
+<input id="tp" type="number" min="0" placeholder="Enter power in Watt">
+<label>Speed (RPM)</label>
+<input id="tn" type="number" min="0" placeholder="Enter RPM">
+<button class="calculate" onclick="calculateTorque()">Calculate Torque</button>
+<div id="tr" class="result"></div>
+</section>
+
+<!-- POWER -->
+<section id="power" class="screen">
+<button class="back" onclick="goHome()">← Back</button>
+<h2>Power Calculator</h2>
+<label>Torque (Nm)</label>
+<input id="pt" type="number" min="0" placeholder="Enter torque">
+<label>Speed (RPM)</label>
+<input id="pn" type="number" min="0" placeholder="Enter RPM">
+<button class="calculate" onclick="calculatePower()">Calculate Power</button>
+<div id="pr" class="result"></div>
+</section>
+
+<!-- RPM -->
+<section id="rpm" class="screen">
+<button class="back" onclick="goHome()">← Back</button>
+<h2>RPM Calculator</h2>
+<label>Power (Watt)</label>
+<input id="rp" type="number" min="0" placeholder="Enter power">
+<label>Torque (Nm)</label>
+<input id="rt" type="number" min="0" placeholder="Enter torque">
+<button class="calculate" onclick="calculateRPM()">Calculate RPM</button>
+<div id="rr" class="result"></div>
+</section>
+
+<!-- EFFICIENCY -->
+<section id="efficiency" class="screen">
+<button class="back" onclick="goHome()">← Back</button>
+<h2>Motor Efficiency</h2>
+<label>Output Power (Watt)</label>
+<input id="eo" type="number" min="0" placeholder="Enter output power">
+<label>Input Power (Watt)</label>
+<input id="ei" type="number" min="0" placeholder="Enter input power">
+<button class="calculate" onclick="calculateEfficiency()">Calculate Efficiency</button>
+<div id="er" class="result"></div>
+</section>
+
+<!-- ENERGY -->
+<section id="energy" class="screen">
+<button class="back" onclick="goHome()">← Back</button>
+<h2>Energy Consumption</h2>
+<label>Electrical Power (kW)</label>
+<input id="ep" type="number" min="0" placeholder="Enter power in kW">
+<label>Operating Time (Hours)</label>
+<input id="et" type="number" min="0" placeholder="Enter operating hours">
+<button class="calculate" onclick="calculateEnergy()">Calculate Energy</button>
+<div id="enr" class="result"></div>
+</section>
+
+<!-- FORMULAS -->
+<section id="formulas" class="screen">
+<button class="back" onclick="goHome()">← Back</button>
+<h2>Formula Library</h2>
+
+<div class="formula">
+<b>1. Torque</b><br>
+T = (60 × P) / (2 × π × N)<br>
+T = Torque (Nm), P = Power (W), N = RPM
+</div>
+
+<div class="formula">
+<b>2. Mechanical Power</b><br>
+P = (2 × π × T × N) / 60<br>
+P = Power (W)
+</div>
+
+<div class="formula">
+<b>3. Rotational Speed</b><br>
+N = (60 × P) / (2 × π × T)
+</div>
+
+<div class="formula">
+<b>4. Efficiency</b><br>
+η = (Output Power / Input Power) × 100%
+</div>
+
+<div class="formula">
+<b>5. Energy Consumption</b><br>
+E = Power (kW) × Time (Hours)<br>
+E = Energy (kWh)
+</div>
+</section>
+
+<footer>Mechanical Toolkit | Engineering Calculator</footer>
+</div>
+
+<script>
+function openScreen(id){
+ document.getElementById("home").style.display="none";
+ document.querySelectorAll(".screen").forEach(function(s){
+  s.classList.remove("active");
+ });
+ document.getElementById(id).classList.add("active");
+}
+
+function goHome(){
+ document.querySelectorAll(".screen").forEach(function(s){
+  s.classList.remove("active");
+ });
+ document.getElementById("home").style.display="grid";
+}
+
+function getNumber(id){
+ const value=document.getElementById(id).value.trim();
+ if(value==="") return NaN;
+ return Number(value);
+}
+
+function showResult(id,message){
+ const box=document.getElementById(id);
+ box.innerHTML=message;
+ box.style.display="block";
+}
+
+function errorResult(id,message){
+ showResult(id,"⚠️ "+message);
+}
+
+function validPositive(value){
+ return Number.isFinite(value) && value>0;
+}
+
+function calculateTorque(){
+ const p=getNumber("tp"), n=getNumber("tn");
+ if(!validPositive(p)||!validPositive(n)){
+  errorResult("tr","Power এবং RPM শূন্যের চেয়ে বেশি দিতে হবে।");return;
+ }
+ const t=(60*p)/(2*Math.PI*n);
+ showResult("tr","Torque = <b>"+t.toFixed(3)+" Nm</b>");
+}
+
+function calculatePower(){
+ const t=getNumber("pt"), n=getNumber("pn");
+ if(!validPositive(t)||!validPositive(n)){
+  errorResult("pr","Torque এবং RPM শূন্যের চেয়ে বেশি দিতে হবে।");return;
+ }
+ const p=(2*Math.PI*t*n)/60;
+ showResult("pr","Power = <b>"+p.toFixed(2)+" W</b><br>Power = <b>"+(p/1000).toFixed(3)+" kW</b>");
+}
+
+function calculateRPM(){
+ const p=getNumber("rp"), t=getNumber("rt");
+ if(!validPositive(p)||!validPositive(t)){
+  errorResult("rr","Power এবং Torque শূন্যের চেয়ে বেশি দিতে হবে।");return;
+ }
+ const n=(60*p)/(2*Math.PI*t);
+ showResult("rr","Speed = <b>"+n.toFixed(2)+" RPM</b>");
+}
+
+function calculateEfficiency(){
+ const output=getNumber("eo"), input=getNumber("ei");
+ if(!Number.isFinite(output)||!validPositive(input)||output<0){
+  errorResult("er","সঠিক Output ও Input Power দিন। Input Power শূন্যের বেশি হতে হবে।");return;
+ }
+ if(output>input){
+  errorResult("er","Output Power, Input Power-এর চেয়ে বেশি হতে পারে না। মানগুলো পরীক্ষা করুন।");return;
+ }
+ const e=(output/input)*100;
+ showResult("er","Motor Efficiency = <b>"+e.toFixed(2)+"%</b>");
+}
+
+function calculateEnergy(){
+ const p=getNumber("ep"), h=getNumber("et");
+ if(!validPositive(p)||!validPositive(h)){
+  errorResult("enr","Power ও Operating Time শূন্যের চেয়ে বেশি দিতে হবে।");return;
+ }
+ const energy=p*h;
+ showResult("enr","Energy Consumption = <b>"+energy.toFixed(3)+" kWh</b>");
+}
+</script>
+
+</body>
+</html>
